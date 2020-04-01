@@ -1,19 +1,17 @@
 const path = require("path");
 const fs = require("fs");
-const dataFilePath = path.join(__dirname, "../", "../", "data",'notes.json');
+const dataFilePath = path.join(__dirname, "../", "../", "data", "notes.json");
 
 class Note {
   constructor(title, description, priority) {
-    this.id = Date.now();
+    this.id = new Date()
     this.title = title;
     this.description = description;
     this.priority = priority;
   }
 
   static fetchAll() {
-    const notesFromFile = fs.readFileSync(
-     dataFilePath
-    );
+    const notesFromFile = fs.readFileSync(dataFilePath);
     const notes = JSON.parse(notesFromFile);
     return notes;
   }
@@ -34,15 +32,13 @@ class Note {
   static removeNote(id) {
     const notes = this.fetchAll();
     const noteToRemoveIndex = notes.findIndex(n => n.id === id);
-    const notesAfterRemoval = notes.splice(noteToRemoveIndex, 1);
-    fs.writeFileSync(dataFilePath, JSON.stringify(notesAfterRemoval));
+    notes.splice(noteToRemoveIndex, 1);
+    fs.writeFileSync(dataFilePath, JSON.stringify(notes));
   }
   createNote() {
     const notes = Note.fetchAll();
-    
-    
     notes.push(this);
-    return fs.writeFileSync(dataFilePath, JSON.stringify(notes));
+    fs.writeFileSync(dataFilePath, JSON.stringify(notes));
   }
 }
 module.exports = Note;

@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css"/>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notes app</title>
   </head>
   <body>
-    <form action="/add" method="POST">
+    <form class="note-form" action="/add" method="POST">
       <label for="title">Tytuł</label>
       <input type="text" name="title" id="note-title" />
       <label for="description">Opis</label>
       <input type="text" name="description" id="note-description" />
       <label for="priority">Priorytet</label>
       <select name="priority" id="note-priority">
-        <option value="3">IMPORTANT</option>
-        <option value="2">NORMAL</option>
-        <option value="1">OPTIONAL</option>
+        <option value="IMPORTANT">IMPORTANT</option>
+        <option value="NORMAL">NORMAL</option>
+        <option value="OPTIONAL">OPTIONAL</option>
       </select>
-      <button type="submit">
-        Utwórz
+      <button type="submit" class="btn">
+        Zapisz
       </button>
     </form>
     <div class="notes-container">
         <ul>
             <%if(notes){for(let i =0;i<notes.length;i++){%>
                 <li class="note">
-                    <p>Tytuł:<%=notes[i].title%></p>
-                    <p>Treść:<%=notes[i].description%></p>
-                    <p>Priorytet:<%=notes[i].priority%></p>
-                    <p>Utworzono:<%=notes[i].id%></p>
+                  <form method="POST" action="/delete">
+                    <input type="hidden" name="noteId" value="<%=notes[i].id%>">
+                    <button class="delete-note" type="submit">X</button>
+                  </form>
+                    <p class="note-title">Tytuł: <%=notes[i].title%></p>
+                    <p class="note-description">Treść: <%=notes[i].description%></p>
+                    <p class="note-priority">Priorytet: <%=notes[i].priority%></p>
+                    <p class="note-timestamp">Timestamp: <%=notes[i].id%></p>
                 </li>
                 <%}}%>
         </ul>
 
     </div>
   </body>
+  <script src="/js/index.js"></script>
 </html>
