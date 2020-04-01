@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes app</title>
+  </head>
+  <body>
+    <form action="/add" method="POST">
+      <label for="title">Tytuł</label>
+      <input type="text" name="title" id="note-title" />
+      <label for="description">Opis</label>
+      <input type="text" name="description" id="note-description" />
+      <label for="priority">Priorytet</label>
+      <select name="priority" id="note-priority">
+        <option value="3">IMPORTANT</option>
+        <option value="2">NORMAL</option>
+        <option value="1">OPTIONAL</option>
+      </select>
+      <button type="submit">
+        Utwórz
+      </button>
+    </form>
+    <div class="notes-container">
+        <ul>
+            <%if(notes){for(let i =0;i<notes.length;i++){%>
+                <li class="note">
+                    <p>Tytuł:<%=notes[i].title%></p>
+                    <p>Treść:<%=notes[i].description%></p>
+                    <p>Priorytet:<%=notes[i].priority%></p>
+                    <p>Utworzono:<%=notes[i].id%></p>
+                </li>
+                <%}}%>
+        </ul>
+
+    </div>
+  </body>
+</html>
